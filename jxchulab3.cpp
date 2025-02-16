@@ -38,8 +38,10 @@ public:
         cout << "Cargo object destroyed.\n";
     }
 
-    // Friend function to convert kg to pounds
+    // Friend function
     friend double kilotopound(double kg);
+    friend void inputCargo(Cargo& cargo);
+    friend void outputCargo(const Cargo& cargo);
 
     // Setters
     void setUldType(const string& uld) { this->uld = uld; }
@@ -69,10 +71,6 @@ public:
     bool operator==(const Cargo& other) const {
         return (uldid == other.uldid && abrv == other.abrv);
     }
-
-    // Friend functions for input and output
-    friend void inputCargo(Cargo& cargo);
-    friend void outputCargo(const Cargo& cargo);
 };
 
 // Friend function to convert kilograms to pounds
@@ -130,12 +128,19 @@ void outputCargo(const Cargo& cargo) {
 }
 
 int main() {
-    // Create unit1 with test data
-    Cargo unit1("Container", "AYK", "AYK68943IB", 737, 1654, "PDX");
+    /*  ----------Possible Data Input----------
+        - Combo Flat
+        - AYF
+        - 68943
+        - 737
+        - 1654
+        - K
+        - PDX
+    */
 
-    // Convert weight if necessary
-    cout << "Testing kilotopound function...\n";
-    unit1.setWeight(1654, 'K'); // Convert 1654 kg to pounds
+    Cargo unit1;
+    // Data input for unit1
+    inputCargo(unit1);
 
     // Output updated unit1 details
     outputCargo(unit1);
