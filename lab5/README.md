@@ -1,13 +1,6 @@
-lab5/
-│── testFile/          # Directory containing test files
-│   ├── valid_data.txt
-│   ├── invalid_weight.txt
-│   ├── invalid_aircraft.txt
-│   ├── ... (other test files)
-│── jxchulab5.cpp           # Main C++ source file
-│── Makefile           # Makefile for compiling and running tests
-│── README.md          # This README file
-│── results.txt        # Test output (generated after running tests)
+# Lab 5 Cargo Management System 🚀
+
+## 📂 Project Structure
 
 TO USE Makefile :
 Remember to uncomment main and action functions at the very bottom in jxchulab5.cpp and comment out the origin main and action functions.
