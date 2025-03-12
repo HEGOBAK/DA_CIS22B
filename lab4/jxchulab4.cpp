@@ -88,13 +88,15 @@ void readCargoFromFile() {
 
     inputFile.close();
 
+    // Might require to use -std=c++11 
+    // or -std=c++17 to compile
     // Display all Cargo objects
-    for (const Cargo* cargo : cargoList) {
+    for (const Cargo* cargo : cargoList) {  
         cargo->display();
     }
 
 	// Cleanup memory
-	for (Cargo* cargo : cargoList) {
+	for (Cargo* cargo : cargoList) {  
 		delete cargo;
 	}
 }
