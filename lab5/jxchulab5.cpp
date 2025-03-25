@@ -17,10 +17,10 @@ protected:
 
 public:
     // Default constructor
-    Cargo() : type("Unknown"), abbreviation("Unknown"), ULD("Unknown"), planeType(0),weight(0), destination("Unknown") {}
+    Cargo() : type("Unknown"), abbreviation("Unknown"), ULD("Unknown"), planeType("Unknown"),weight(0), destination("Unknown") {}
 
     // Parameterized constructor
-    Cargo(const string& uld, const string& abrv, const string& uldid, string air, double wt, const string& dest)
+    Cargo(const string& uld, const string& abrv, const string& uldid, string air, int wt, const string& dest)
         : type(uld), abbreviation(abrv), ULD(uldid), planeType(air), weight(wt), destination(dest) {}
 
     // Copy Constructor
@@ -123,15 +123,22 @@ public:
         newNode->next = head;
         head = newNode;
         totalWeight += c->getWeight();
+
+        // Show total weight immediately after adding
+        cout << "Added ULD (" << c->getUldId() << ") with weight (" << c->getWeight() << ") to cargo : " << c->getAircraft()
+            << ". Current total weight of cargo " << c->getAircraft() << " : " << totalWeight << " lbs\n";
+
         return true;
+    }
+    
+    void displayHelper(Node* node) const {
+        if (!node) return;
+        displayHelper(node->next);  // Recurse to the end first
+        node->cargo->display();     // Then print on the way back
     }
 
     void display() const {
-        Node* current = head;
-        while (current != nullptr) {
-            current->cargo->display();
-            current = current->next;
-        }
+        displayHelper(head);  // Start from head
         cout << "Total Weight: " << totalWeight << " lbs\n";
     }
 };
@@ -161,6 +168,7 @@ bool isValidUnitLoad(const string& aircraft, const string& abrv) {
     return false;
 }
 
+
 // Function to validate cargo weight within aircraft limits
 bool isValidWeight(const string& aircraft, int weight) {
     if (aircraft == "737") return weight > 0 && weight <= 46000;
@@ -168,13 +176,35 @@ bool isValidWeight(const string& aircraft, int weight) {
     return false;
 }
 
+bool hasTooManyLines(const string& filename) {
+    ifstream file(filename);
+    if (!file) {
+        throw runtime_error("Error opening file to count lines.");
+    }
+
+    int lineCount = 0;
+    string line;
+    while (getline(file, line)) {
+        ++lineCount;
+        if (lineCount > 20) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 // Function to read input from file
 void readInputFile(const string& filename, CargoList& list737, CargoList& list767) {
     ifstream inputFile(filename);
     if (!inputFile) {
         throw runtime_error("Invalid file name. Unable to open.");
+    } else if (hasTooManyLines(filename)) {
+        throw runtime_error("Invalid file name. Unable to open.");
     }
 
+    cout << "\n----- Process..... -----" << endl;
     string line;
     while (getline(inputFile, line)) {
         istringstream cargoISS(line);

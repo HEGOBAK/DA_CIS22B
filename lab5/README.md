@@ -3,7 +3,8 @@
 ## 📂 Project Structure
 
 TO USE Makefile :
-Remember to uncomment main and action functions at the very bottom in jxchulab5.cpp and comment out the origin main and action functions.
+> ⚠️ **IMPORTANT:** Remember to **uncomment** the `main()` and `action()` functions at the **very bottom** of `jxchulab5.cpp`, and **comment out** the original `main()` and `action()` functions at the top to use the Makefile correctly.
+
 
 🛠 Compilation & Execution
 This project uses a Makefile to compile the C++ program and run test cases.
